@@ -154,7 +154,7 @@ export default function Home() {
       <div className='container-fluid'>
         <div className='row'>
           {myLists.map((list) => (
-            <div className='col-4'>
+            <div className='col-12'>
               <Accordion className='mb-3' key={list.id}>
                 <Accordion.Item key={list.id}>
                   <EditableAccordionHeader
