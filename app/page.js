@@ -164,11 +164,10 @@ export default function Home() {
                   <Accordion.Body>
                     {list.items.map((item) => (
                       <div key={item.id}>
-                        <InputGroup className='mb-3'>
+                        <InputGroup className='mb-3' onClick={() => changeItem(list.id, item.id)}>
                           <InputGroup.Checkbox
                             aria-label='Checkbox for following text input'
                             checked={item.finished}
-                            onChange={() => changeItem(list.id, item.id)}
                           />
                           <Form.Control
                             aria-label='Text input with checkbox'
