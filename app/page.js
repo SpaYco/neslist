@@ -116,6 +116,20 @@ export default function Home() {
     setMyLists(updatedLists);
   };
 
+  const deleteItem = (listId, itemId) => {
+    const updatedLists = myLists.map((list) => {
+      if (list.id === listId) {
+        const updatedItems = list.items.filter((item) => item.id !== itemId);
+        return {
+          ...list,
+          items: updatedItems,
+        };
+      }
+      return list;
+    });
+    setMyLists(updatedLists);
+  }
+
   const resetList = (listId) => {
     const updatedLists = myLists.map((list) => {
       if (list.id === listId) {
@@ -164,10 +178,11 @@ export default function Home() {
                   <Accordion.Body>
                     {list.items.map((item) => (
                       <div key={item.id}>
-                        <InputGroup className='mb-3' onClick={() => changeItem(list.id, item.id)}>
+                        <InputGroup className='mb-3'>
                           <InputGroup.Checkbox
                             aria-label='Checkbox for following text input'
                             checked={item.finished}
+                            onChange={() => changeItem(list.id, item.id)}
                           />
                           <Form.Control
                             aria-label='Text input with checkbox'
@@ -176,6 +191,12 @@ export default function Home() {
                               changeItemValue(e, list.id, item.id)
                             }
                           />
+                          <Button
+                            variant='outline-danger'
+                            size='xs'
+                            onClick={() => deleteItem(list.id, item.id)}
+                          > Delete
+                          </Button>
                         </InputGroup>
                       </div>
                     ))}
@@ -221,15 +242,17 @@ export default function Home() {
 
 const EditableAccordionHeader = ({ list, changeListName }) => {
   const nameRef = useRef(list.name);
-  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <Accordion.Header
-      contentEditable='true'
       onInput={(e) => changeListName(e, list.id)}
       aria-placeholder='Enter a name'
     >
-      {nameRef.current}
+      <input
+        ref={nameRef}
+        value={list.name}
+        onChange={(e) => changeListName(e, list.id)}
+      />
     </Accordion.Header>
   );
 };
