@@ -235,7 +235,7 @@ export default function Home() {
                       size="xs"
                       onClick={() => deleteList(list.id)}
                     >
-                      🗑️
+                      Delete
                     </Button>
 
                     <Button
