@@ -117,6 +117,10 @@ export default function Home() {
   };
 
   const deleteItem = (listId, itemId) => {
+    if (!confirm("Are you sure you want to delete this item?")) {
+      return;
+    }
+
     const updatedLists = myLists.map((list) => {
       if (list.id === listId) {
         const updatedItems = list.items.filter((item) => item.id !== itemId);
