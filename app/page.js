@@ -153,6 +153,15 @@ export default function Home() {
     setMyLists(updatedLists);
   };
 
+  const deleteList = (listId) => {
+    if (!confirm("Are you sure you want to delete this list?")) {
+      return;
+    }
+
+    const updatedLists = myLists.filter((list) => list.id !== listId);
+    setMyLists(updatedLists);
+  }
+
   const calculateProgress = (listId) => {
     const list = myLists.find((list) => list.id === listId);
     const totalItems = list.items.length;
@@ -199,7 +208,7 @@ export default function Home() {
                             variant='outline-danger'
                             size='xs'
                             onClick={() => deleteItem(list.id, item.id)}
-                          > Delete
+                          > 🗑️
                           </Button>
                         </InputGroup>
                       </div>
@@ -219,6 +228,14 @@ export default function Home() {
                       onClick={() => resetList(list.id)}
                     >
                       Reset
+                    </Button>
+
+                    <Button
+                      variant="outline-danger me-3"
+                      size="xs"
+                      onClick={() => deleteList(list.id)}
+                    >
+                      🗑️
                     </Button>
 
                     <Button
